@@ -20,6 +20,15 @@ function playRound(playerSelection, computerSelection){
     
     let status;
 
+        
+    function reformatSelectionString(selection){
+
+        let reformattedSelection = selection[0].toUpperCase() + 
+                                    selection.slice(1).toLowerCase();
+
+        return reformattedSelection;
+    }
+
     if (playerSelection === computerSelection){
         return "It's a Tie!".concat(" ", 
             reformatSelectionString(playerSelection), " and ", reformatSelectionString(computerSelection));
@@ -56,16 +65,6 @@ function playRound(playerSelection, computerSelection){
         }
     }
 
-    
-    function reformatSelectionString(selection){
-
-        let reformattedSelection = selection[0].toUpperCase() + 
-                                    selection.slice(1).toLowerCase();
-
-        return reformattedSelection;
-    }
-
-
     playerSelection = reformatSelectionString(playerSelection);
 
     computerSelection = reformatSelectionString(computerSelection);
@@ -83,7 +82,7 @@ function playRound(playerSelection, computerSelection){
 
 function game(){
     for (let counter = 0; counter < 5; counter++){
-        let playerSelection = prompt("Rock, Paper, or Scissor?");
+        let playerSelection = prompt("Rock, Paper, or Scissors?");
         let computerSelection = getComputerChoice();
 
         console.log(
