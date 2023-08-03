@@ -1,3 +1,35 @@
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+let display = document.querySelector('#display');
+
+let gameStatus;
+let playerSelection;
+let computerSelection;
+let clicked = false;
+
+let computerScore = 0;
+let playerScore = 0;
+
+rock.addEventListener('click', ()=>{
+    playerSelection = 'ROCK';
+    computerSelection = getComputerChoice();
+    gameStatus = playRound(playerSelection, computerSelection);
+});
+paper.addEventListener('click', ()=>{
+    playerSelection = 'PAPER';
+    computerSelection = getComputerChoice();
+    gameStatus = playRound(playerSelection, computerSelection)
+});
+scissors.addEventListener('click', ()=>{
+    playerSelection = 'SCISSORS';
+    computerSelection = getComputerChoice();
+    gameStatus = playRound(playerSelection, computerSelection)
+});
+
+
+
+
 // FUNCTION RETURNING RANDOM CHOICE
 
 function getComputerChoice(){
@@ -48,57 +80,69 @@ function playRound(playerSelection, computerSelection){
         }
     }
 
-    return status;
+
+    displayResult(status, playerSelection, computerSelection, playerScore, computerScore);
+    
 }
+
+
+
 
 
 // GAME OF FIVE ROUNDS
 
-function game(){
+function reformatSelectionString(selection){
 
-    let playerScore = 0;
-    let computerScore = 0;
-
-    for (let counter = 0; counter < 5; counter++){
-        let playerSelection = prompt("Rock, Paper, or Scissors?");
-        let computerSelection = getComputerChoice();
-        let status = playRound(playerSelection, computerSelection)
-        displayResult(status, playerSelection, computerSelection);
-
-    }
-
-    function displayResult(status, playerSelection, computerSelection){
-
-        function reformatSelectionString(selection){
-
-            let reformattedSelection = selection[0].toUpperCase() + 
-                                        selection.slice(1).toLowerCase();
-            return reformattedSelection;
-        }
-
-        playerSelection = reformatSelectionString(playerSelection);
-        computerSelection = reformatSelectionString(computerSelection);
-
-        if (status === "win"){
-            playerScore++;
-            console.log( "You Win!".concat(" ", playerSelection, " beats ", computerSelection));
-
-        }
-        else if (status === "lose"){
-            computerScore++;
-            console.log( "You Lose!".concat(" ", computerSelection, " beats ", playerSelection));
-      
-        }
-        else{
-            computerScore++;
-            playerScore++;
-
-            console.log("It's a Tie!".concat(" ", 
-                    reformatSelectionString(playerSelection), " and ", reformatSelectionString(computerSelection)));
-        }
-
-        console.log(playerScore.toString().concat("-",computerScore.toString()));
-    }
+    let reformattedSelection = selection[0].toUpperCase() + 
+                                selection.slice(1).toLowerCase();
+    return reformattedSelection;
 }
 
-game();
+
+
+function displayResult(status, playerSelection, computerSelection, playerScore, computerScore){
+    let result;
+
+    playerSelection = reformatSelectionString(playerSelection);
+    computerSelection = reformatSelectionString(computerSelection);
+
+    if (status === "win"){
+        playerScore++;
+        result = 
+            "You Win!".concat(" ", playerSelection, " beats ", computerSelection);
+
+    }
+    else if (status === "lose"){
+        computerScore++;
+        result =
+            "You Lose!".concat(" ", computerSelection, " beats ", playerSelection);
+  
+    }
+    else{
+        computerScore++;
+        playerScore++;
+
+        result = 
+            "It's a Tie!".concat(" ", 
+                reformatSelectionString(playerSelection), " and ", reformatSelectionString(computerSelection));
+    }
+    const resultElement = document.createElement('div');
+    resultElement.textContent = result;
+    
+
+    const score = 
+        playerScore.toString().concat("-",computerScore.toString());
+    const scoreElement = document.createElement('div');
+    scoreElement.textContent = score;
+    
+    display = document.createElement('div');
+    display.appendChild(resultElement);
+    display.appendChild(scoreElement);
+
+
+    console.log('displayResult CALLED')
+    console.log(scoreElement)
+}
+
+
+
