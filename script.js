@@ -47,6 +47,7 @@ function getComputerChoice(){
 // FUNCTION FOR SINGLE ROUND
 
 function playRound(playerSelection, computerSelection){
+    
     playerSelection = playerSelection.toUpperCase();
     let status;
 
@@ -81,7 +82,9 @@ function playRound(playerSelection, computerSelection){
     }
 
 
+
     displayResult(status, playerSelection, computerSelection, playerScore, computerScore);
+    return status;
     
 }
 
@@ -100,7 +103,7 @@ function reformatSelectionString(selection){
 
 
 
-function displayResult(status, playerSelection, computerSelection, playerScore, computerScore){
+function displayResult(status, playerSelection, computerSelection){
     let result;
 
     playerSelection = reformatSelectionString(playerSelection);
@@ -126,6 +129,8 @@ function displayResult(status, playerSelection, computerSelection, playerScore, 
             "It's a Tie!".concat(" ", 
                 reformatSelectionString(playerSelection), " and ", reformatSelectionString(computerSelection));
     }
+
+
     const resultElement = document.createElement('div');
     resultElement.textContent = result;
     
@@ -140,8 +145,15 @@ function displayResult(status, playerSelection, computerSelection, playerScore, 
     display.appendChild(scoreElement);
 
 
-    console.log('displayResult CALLED')
+    console.log(resultElement);
     console.log(scoreElement)
+
+
+    if (playerScore === 5 || computerScore === 5){
+        console.log("GAME ENDS");
+        playerScore = 0;
+        computerScore = 0;
+    }
 }
 
 
