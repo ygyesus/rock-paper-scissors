@@ -2,11 +2,11 @@ const rock = document.querySelector('#rock');
 const paper = document.querySelector('#paper');
 const scissors = document.querySelector('#scissors');
 let display = document.querySelector('#display');
+display.classList.add('default');
 
 let gameStatus;
 let playerSelection;
 let computerSelection;
-let clicked = false;
 
 let computerScore = 0;
 let playerScore = 0;
@@ -29,7 +29,6 @@ scissors.addEventListener('click', ()=>{
 
 
 
-
 // FUNCTION RETURNING RANDOM CHOICE
 
 function getComputerChoice(){
@@ -48,6 +47,11 @@ function getComputerChoice(){
 
 function playRound(playerSelection, computerSelection){
     display.replaceChildren();
+
+    display.classList.remove('win');
+    display.classList.remove('lose');
+    display.classList.add('default');
+
     playerSelection = playerSelection.toUpperCase();
     let status;
 
@@ -81,16 +85,10 @@ function playRound(playerSelection, computerSelection){
         }
     }
 
-
-
     displayResult(status, playerSelection, computerSelection, playerScore, computerScore);
     return status;
     
 }
-
-
-
-
 
 // GAME OF FIVE ROUNDS
 
@@ -100,8 +98,6 @@ function reformatSelectionString(selection){
                                 selection.slice(1).toLowerCase();
     return reformattedSelection;
 }
-
-
 
 function displayResult(status, playerSelection, computerSelection){
     let result;
@@ -122,7 +118,6 @@ function displayResult(status, playerSelection, computerSelection){
   
     }
 
-
     else{
         computerScore++;
         playerScore++;
@@ -132,36 +127,38 @@ function displayResult(status, playerSelection, computerSelection){
                 reformatSelectionString(playerSelection), " and ", reformatSelectionString(computerSelection));
     }
 
-
     const resultElement = document.createElement('div');
     resultElement.textContent = result;
     
-
     const score = 
         playerScore.toString().concat("-",computerScore.toString());
+
     const scoreElement = document.createElement('div');
     scoreElement.textContent = score;
-    
 
     display.appendChild(resultElement);
     display.appendChild(scoreElement);
 
-
-
-
     if (playerScore === 5 || computerScore === 5){
         const finalMessage = document.createElement('div');
 
-        if (playerScore === 5){
+        if (playerScore === 5 && computerScore < 5){
             finalMessage.textContent = "Congrats! You've beat the computer!";
+            display.classList.remove('default');
+            display.classList.add('win');
+        }
+        else if (playerScore < 5 && computerScore === 5){
+            finalMessage.textContent = "You lose this game! Don't give up just yet!";
+            display.classList.remove('default');
+            display.classList.add('lose');
         }
         else{
-            finalMessage.textContent = "You lose this game! Don't give up just yet!";
+            finalMessage.textContent = "Wow! You have tied with the computer!"
         }
+
         playerScore = 0;
         computerScore = 0;
         display.replaceChildren();
-
 
         const nextGameMessage = document.createElement('div');
         nextGameMessage.textContent = "Click any of the buttons for new game";
@@ -169,6 +166,7 @@ function displayResult(status, playerSelection, computerSelection){
         display.appendChild(finalMessage);
         display.appendChild(scoreElement);
         display.appendChild(nextGameMessage);
+        
     }
 }
 

@@ -4,11 +4,22 @@
 body{
     background-color: rgb(207, 207, 80);
 }
+
+h1.title{
+    text-align: center;
+    font-weight: 100;
+}
+
+.title{
+    font-family: fantasy, sans-serif;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
 .button-container{
     display: flex;
     justify-content: center;
     flex-direction: row;
-    gap: 5px;
+    gap: 15px;
 }
 button{
     background-color: red;
@@ -23,10 +34,11 @@ button:hover{
     background-color: white;
 }
 
-div#display{
+div.display{
     
     width: 30%;
-    background-color: lightgreen;
+
+
     border: 2px solid pink;
     margin: 50px;
     display: flex;
@@ -48,8 +60,20 @@ div#display{
     align-items: center;
 }
 
-div{
+div.display *{
     text-align: center;
     margin: 15px;
 
+}
+
+.default{
+    background-color: lightgreen;
+}
+
+.win{
+    background-color: aqua;
+}
+
+.lose{
+    background-color: orange;
 }
