@@ -163,11 +163,13 @@ function displayResult(status, playerSelection, computerSelection){
         const nextGameMessage = document.createElement('div');
         nextGameMessage.textContent = "Click any of the buttons for new game";
 
+        
         display.appendChild(finalMessage);
         display.appendChild(scoreElement);
         display.appendChild(nextGameMessage);
         
     }
+    scoreElement.classList.add('scoreElementStyle');
 }
 
 
