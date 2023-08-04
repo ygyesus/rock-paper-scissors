@@ -156,14 +156,19 @@ function displayResult(status, playerSelection, computerSelection){
             finalMessage.textContent = "Congrats! You've beat the computer!";
         }
         else{
-            finalMessage.textContent = "You lose this game! Don't give up yet!";
+            finalMessage.textContent = "You lose this game! Don't give up just yet!";
         }
         playerScore = 0;
         computerScore = 0;
         display.replaceChildren();
 
+
+        const nextGameMessage = document.createElement('div');
+        nextGameMessage.textContent = "Click any of the buttons for new game";
+
         display.appendChild(finalMessage);
         display.appendChild(scoreElement);
+        display.appendChild(nextGameMessage);
     }
 }
 
