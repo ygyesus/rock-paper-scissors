@@ -47,7 +47,7 @@ function getComputerChoice(){
 // FUNCTION FOR SINGLE ROUND
 
 function playRound(playerSelection, computerSelection){
-    
+    display.replaceChildren();
     playerSelection = playerSelection.toUpperCase();
     let status;
 
@@ -121,6 +121,8 @@ function displayResult(status, playerSelection, computerSelection){
             "You Lose!".concat(" ", computerSelection, " beats ", playerSelection);
   
     }
+
+
     else{
         computerScore++;
         playerScore++;
@@ -140,19 +142,28 @@ function displayResult(status, playerSelection, computerSelection){
     const scoreElement = document.createElement('div');
     scoreElement.textContent = score;
     
-    display = document.createElement('div');
+
     display.appendChild(resultElement);
     display.appendChild(scoreElement);
 
 
-    console.log(resultElement);
-    console.log(scoreElement)
 
 
     if (playerScore === 5 || computerScore === 5){
-        console.log("GAME ENDS");
+        const finalMessage = document.createElement('div');
+
+        if (playerScore === 5){
+            finalMessage.textContent = "Congrats! You've beat the computer!";
+        }
+        else{
+            finalMessage.textContent = "You lose this game! Don't give up yet!";
+        }
         playerScore = 0;
         computerScore = 0;
+        display.replaceChildren();
+
+        display.appendChild(finalMessage);
+        display.appendChild(scoreElement);
     }
 }
 
